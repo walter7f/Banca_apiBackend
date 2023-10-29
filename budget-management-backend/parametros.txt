@@ -1,0 +1,59 @@
+
+
+Opción de añadir gastos/ingresos   ---
+La aplicación debe tener por defecto una lista de categorías para poder utilizar a la hora de registrar un gasto/ingreso ---
+Página para ver el historial de gastos/ingresos--
+Filtrar por fecha----
+Filtrar por categoría---
+Filtrar por cuenta bancaria---
+Transferencias entre cuentas locales (Dentro de la misma aplicación)
+Lo que sale de la cuenta se registra como gasto ---
+Lo que entra en la cuenta se registra como ingreso. ---
+Deben poder manejar diferentes monedas, así como tipos de cambio.
+Tablero general
+Se debe mostrar un resumen de las cuentas.---
+Desde el tablero, puede agregar gastos/ingresos y también registrar transacciones locales
+
+
+
+/////-------------- pip install requests --------//////////
+
+
+from flask import Flask, render_template
+import requests
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    # Hacer una solicitud a la API JSONPlaceholder
+    response = requests.get('https://jsonplaceholder.typicode.com/todos/1')
+
+    # Verificar si la solicitud fue exitosa (código de estado 200)
+    if response.status_code == 200:
+        # Convertir la respuesta JSON a un diccionario de Python
+        todo_data = response.json()
+        return render_template('index.html', todo=todo_data)
+    else:
+        return 'Error al obtener datos de la API'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumir API con Flask</title>
+</head>
+<body>
+    <h1>Detalles del TODO:</h1>
+    <p>Usuario ID: {{ todo.userId }}</p>
+    <p>ID: {{ todo.id }}</p>
+    <p>Título: {{ todo.title }}</p>
+    <p>Completado: {{ todo.completed }}</p>
+</body>
+</html>
